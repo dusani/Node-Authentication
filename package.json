@@ -1,0 +1,11 @@
+{
+  "name": "Node-Authentication",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Daniel Usani <daniel.e.usani@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "mongoose": "^5.0.12"
+  }
+}
