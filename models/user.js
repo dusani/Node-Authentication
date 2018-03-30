@@ -1,9 +1,28 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt.js");
+const bcrypt = require("bcryptjs");
 
 const SALT_WORK_FACTOR = 10;
 
 let User;
+
+//---- User Schema ----//
+const UserSchema = new mongoose.Schema({
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: { type: String },
+  username: { type: String },
+  email: {
+    type: String,
+    required: true,
+    index: { unique: true }
+  },
+  password: {
+    type: String,
+    required: true
+  }
+});
 
 //---- Validation ----//
 UserSchema.path("email").validate(email => {
@@ -29,25 +48,6 @@ UserSchema.pre("save", function(next) {
       next();
     });
   });
-});
-
-//---- User Schema ----//
-const UserSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true
-  },
-  lastName: { type: String },
-  username: { type: String },
-  email: {
-    type: String,
-    required: true,
-    index: { unique: true }
-  },
-  password: {
-    type: String,
-    required: true
-  }
 });
 
 //---- Static Methods ----//
@@ -82,7 +82,7 @@ UserSchema.static("findByEmail", (email, callback) => {
 });
 
 //---- Virtul Fields ----//
-UserSchema.virtual("fullname").get(function() {
+UserSchema.virtual("fullName").get(function() {
   return `${this.firstName} ${this.lastName}`;
 });
 
